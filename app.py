@@ -73,10 +73,10 @@ def changeServiceStatement(data):
 def update_service(data):
     for service in services:
         if service.title == data:
-            service_directory = service.get_directory()
-            os.system(f"cd {service_directory}")
+            service_directory = '..'
+            os.chdir(service_directory)
             os.system("git pull")
-            os.system(f"cd {home_directory}")
+            os.chdir(home_directory)
 
 @socketio.on('serviceRestart')
 def restart_service(data):
