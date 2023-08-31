@@ -26,6 +26,10 @@ def full_update_system():
 def reboot_system():
     os.system("reboot")
 
+@app.route("/control/immediate_shutdown", methods=["GET"])
+def reboot_system():
+    os.system("shutdown now")
+
     return jsonify({'status': 200})
 
 if __name__ == "__main__":
