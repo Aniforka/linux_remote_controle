@@ -34,6 +34,6 @@ class Service:
 
     def get_directory(self):
         cmd = f"systemctl show {self.title} --property=WorkingDirectory"
-        result = subprocess.check_output(cmd, shell=True)
+        result = str(subprocess.check_output(cmd, shell=True))
 
         return result.split('=')[1][:-3]
