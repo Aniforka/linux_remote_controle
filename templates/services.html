@@ -26,6 +26,18 @@
             socket.emit('serviceChange', arg)
             console.log(arg)
         }
+
+        function updateService(arg)
+        {
+          socket.emit('serviceUpdate', arg)
+          console.log(arg)
+        }
+
+        function restartService(arg)
+        {
+          socket.emit('serviceRestart', arg)
+          console.log(arg)
+        }
     </script>
   </head>
 </html>
@@ -42,9 +54,21 @@
     </nav>
 
     {% for service in services %}
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="{{service.title}}" onChange="changeService('{{service.title}}')" {{service.isChecked}}>
-        <label class="form-check-label" for="flexSwitchCheckChecked">{{service.title}}</label>
+    <div class="container-sm">
+      <div class="row mt-2">
+        <div class="col-2">
+          <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="{{service.title}}" onChange="changeService('{{service.title}}')" {{service.isChecked}}>
+              <label class="form-check-label" for="flexSwitchCheckChecked">{{service.title}}</label>
+          </div>
+        </div>
+        <div class="col-2">
+          <button class="btn btn-warning" onclick="updateService('{{service.title}}')">Получить обновления</a>
+        </div>
+        <div class="col-1">
+          <button class="btn btn-danger" onclick="restartService('{{service.title}}')">Перезапустить</a>
+        </div>
+      </div>
     </div>
     {% endfor %}
 </body>

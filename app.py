@@ -8,6 +8,7 @@ from service import Service
 from flask import Flask, render_template, url_for, redirect, request, jsonify
 from flask_socketio import SocketIO, emit
 
+home_directory = os.path.abspath(os.curdir)
 
 def read_data():
     data = list()
@@ -67,6 +68,24 @@ def changeServiceStatement(data):
             print(service.title, service.status)
 
     save_data(services)
+
+@socketio.on('serviceUpdate')
+def update_service(data):
+    for service in services:
+        if service.title == data:
+            service_directory = service.get_directory()
+            os.system(f"cd {service_directory}")
+            os.system("git pull")
+            os.system(f"cd {home_directory}")
+
+@socketio.on('serviceRestart')
+def restart_service(data):
+    for service in services:
+        if service.title == data:
+            service.restart()
+    
+    save_data(services)
+
 
 if __name__ == "__main__":
     socketio.run(app, host='0.0.0.0', port=7777, allow_unsafe_werkzeug=True) # from 40 to 60000
