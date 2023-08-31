@@ -73,7 +73,7 @@ def changeServiceStatement(data):
 def update_service(data):
     for service in services:
         if service.title == data:
-            service_directory = '..'
+            service_directory = service.get_directory()
             os.chdir(service_directory)
             os.system("git pull")
             os.chdir(home_directory)
