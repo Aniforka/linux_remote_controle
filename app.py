@@ -76,6 +76,7 @@ def update_service(data):
             service_directory = service.get_directory()
             os.chdir(service_directory)
             os.system("git pull")
+            service.restart()
             os.chdir(home_directory)
 
 @socketio.on('serviceRestart')
